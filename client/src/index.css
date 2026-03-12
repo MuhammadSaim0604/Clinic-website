@@ -1,0 +1,215 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Smooth scrolling for in-page anchor navigation */
+html {
+  scroll-behavior: smooth;
+}
+
+@layer base {
+  :root {
+    --font-sans: 'Plus Jakarta Sans', sans-serif;
+    --font-display: 'Outfit', sans-serif;
+
+    /* Clean Medical Professional Palette */
+    --background: 210 33% 99%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    /* Medical Blue / Teal */
+    --primary: 200 80% 45%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 214 32% 91%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 214 32% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 180 70% 45%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 200 80% 45%;
+
+    --radius: 0.75rem;
+
+    /* Elevation */
+    --elevate-1: rgba(0, 0, 0, 0.03);
+    --elevate-2: rgba(0, 0, 0, 0.08);
+  }
+
+  .dark {
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 47% 13%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 13%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 200 80% 55%;
+    --primary-foreground: 222 47% 11%;
+
+    --secondary: 217 32% 17%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217 32% 17%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 180 70% 45%;
+    --accent-foreground: 222 47% 11%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217 32% 17%;
+    --input: 217 32% 17%;
+    --ring: 200 80% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-sans);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    @apply tracking-tight;
+  }
+}
+
+@layer utilities {
+  .hover-elevate {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .hover-elevate:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.1);
+  }
+
+  .active-elevate-2:active {
+    transform: translateY(0px);
+    box-shadow: 0 4px 12px -6px rgba(0, 0, 0, 0.1);
+  }
+
+  .glass-panel {
+    @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-lg;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
+  }
+
+  /* Jodit Editor Container Styles */
+  .jodit-container {
+    @apply rounded-xl overflow-hidden;
+  }
+
+  .jodit-container .jodit {
+    @apply rounded-none;
+  }
+
+  /* Blog Preview Content */
+  .blog-preview-content {
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    word-wrap: break-word !important;
+  }
+
+  .blog-preview-content * {
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    word-wrap: break-word !important;
+  }
+
+  .blog-preview-content p {
+    @apply mb-6 text-lg leading-8 text-slate-700;
+  }
+
+  .blog-preview-content h1, .blog-preview-content h2, .blog-preview-content h3 {
+    @apply text-slate-900 font-bold;
+  }
+
+  .blog-preview-content h1 {
+    @apply text-3xl md:text-4xl mb-6;
+  }
+
+  .blog-preview-content h2 {
+    @apply text-2xl md:text-3xl mb-4 mt-8;
+  }
+
+  .blog-preview-content h3 {
+    @apply text-xl md:text-2xl mb-4 mt-6;
+  }
+
+  .blog-preview-content img {
+    @apply max-w-full h-auto rounded-2xl my-8 mx-auto block;
+  }
+
+  .blog-preview-content ul, .blog-preview-content ol {
+    @apply mb-6 pl-6;
+  }
+
+  .blog-preview-content li {
+    @apply mb-2 pl-2;
+  }
+
+  .blog-preview-content blockquote {
+    @apply border-l-4 border-primary/30 pl-6 italic my-8 text-slate-600;
+  }
+
+  .blog-preview-content a {
+    @apply text-primary underline;
+  }
+
+  .blog-preview-content a:hover {
+    @apply text-primary/80;
+  }
+}
+
+.quill-preview p,
+.quill-preview h1,
+.quill-preview h2,
+.quill-preview h3,
+.quill-preview h4,
+.quill-preview h5,
+.quill-preview h6,
+.quill-preview li,
+.quill-preview blockquote,
+.quill-preview pre {
+  word-break: normal;
+  overflow-wrap: break-word;
+  white-space: normal;
+  max-width: 100%;
+}
+
+.quill-preview p {
+  margin-bottom: 1em;
+  line-height: 1.6;
+}
