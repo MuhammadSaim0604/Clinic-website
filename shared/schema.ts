@@ -183,6 +183,7 @@ export const BlogSchema = z.object({
   thumbnail: z.string().optional(),
   author: z.string().optional(),
   category: z.string().optional(),
+  published: z.boolean().default(false),
   createdAt: z.string().optional(),
   updatedAt: z.string().optional(),
 });

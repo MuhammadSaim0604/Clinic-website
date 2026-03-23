@@ -376,7 +376,9 @@ export default function AdminBlogs() {
                     variant="destructive"
                     onClick={() => {
                       if (confirm("Are you sure you want to delete this blog?")) {
-                        deleteMutation.mutate(blog.id);
+                        if (blog.id) {
+                          deleteMutation.mutate(blog.id);
+                        }
                       }
                     }}
                     className="w-8 h-8 rounded-lg"
@@ -395,11 +397,13 @@ export default function AdminBlogs() {
                   {blog.title}
                 </h3>
                 <p className="text-xs text-slate-400">
-                  {new Date(blog.createdAt).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
+                  {blog.createdAt
+                    ? new Date(blog.createdAt).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })
+                    : "Unknown date"}
                 </p>
               </CardContent>
             </Card>

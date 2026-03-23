@@ -5,31 +5,31 @@ import { rm, readFile } from "fs/promises";
 // server deps to bundle to reduce openat(2) syscalls
 // which helps cold start times
 const allowlist = [
-  "@google/generative-ai",
+  // core utilities
   "axios",
-  "connect-pg-simple",
-  "cors",
   "date-fns",
-  "drizzle-orm",
-  "drizzle-zod",
-  "express",
-  "express-rate-limit",
-  "express-session",
-  "jsonwebtoken",
-  "memorystore",
-  "multer",
-  "nanoid",
-  "nodemailer",
-  "openai",
-  "passport",
-  "passport-local",
-  "pg",
-  "stripe",
-  "uuid",
-  "ws",
-  "xlsx",
   "zod",
   "zod-validation-error",
+  "uuid",
+  "nanoid",
+
+  // validation / ORM helpers (safe JS)
+  "drizzle-orm",
+  "drizzle-zod",
+
+  // auth / lightweight backend
+  "jsonwebtoken",
+
+  // express ecosystem (safe)
+  "express",
+  "cors",
+  "express-rate-limit",
+
+  // session (ONLY partial safe)
+  "memorystore",
+
+  // websockets (JS only)
+  "ws",
 ];
 
 async function buildAll() {
@@ -52,9 +52,10 @@ async function buildAll() {
     bundle: true,
     format: "cjs",
     outfile: "dist/index.cjs",
-    define: {
-      "process.env.NODE_ENV": '"production"',
-    },
+    // define: {
+    //   "process.env.NODE_ENV": '"production"', // ✅ quotes needed
+    //   "process.env.MONGO_URI": '"mongodb://localhost:27017/clinicwaliwebsite"' // ✅ quotes needed
+    // },
     minify: true,
     external: externals,
     logLevel: "info",

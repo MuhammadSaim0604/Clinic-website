@@ -52,10 +52,18 @@ export function useAuth() {
     }
   });
 
-  const logout = () => {
+  const logout = async () => {
+
     // Assuming backend clears cookie on some endpoint, but for now we clear cache
     queryClient.setQueryData([api.auth.me.path], null);
+    
+    const res = await fetch("/admin/logout", {
+      method: "POST",
+      credentials: "include",
+    });
+
     setLocation("/admin/login");
+
   };
 
   return {

@@ -126,6 +126,7 @@ const BlogSchema = new Schema(
     thumbnail: String,
     author: String,
     category: String,
+    published: { type: Boolean, default: false }
   },
   { timestamps: true },
 );

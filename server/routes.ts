@@ -1,4 +1,4 @@
-import express, { type Express } from "express";
+import express, { type Express, type Request } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { api } from "@shared/routes";
@@ -251,6 +251,7 @@ export async function registerRoutes(
   // Seed initial data
   seedData().catch(console.error);
 
+
   app.post(api.auth.login.path, async (req, res) => {
     try {
       const input = api.auth.login.input.parse(req.body);
@@ -273,6 +274,21 @@ export async function registerRoutes(
     } catch (e) {
       res.status(400).json({ message: "Validation error" });
     }
+  });
+
+  app.post("/admin/logout", (req, res) => {
+    // 1️⃣ Clear all cookies
+    for (const cookieName in req.cookies) {
+      res.clearCookie(cookieName, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        path: "/",
+      });
+    }
+
+    // 3️⃣ Redirect to login page
+    res.redirect("/admin/login");
   });
 
   app.get(api.auth.me.path, async (req, res) => {
@@ -337,12 +353,12 @@ export async function registerRoutes(
     res.json({ success: true });
   });
 
-  app.patch("/api/messages/:id", adminAuthMiddleware, async (req, res) => {
+  app.patch("/api/messages/:id", adminAuthMiddleware, async (req: Request<{ id: string }>, res) => {
     const message = await storage.updateMessage(req.params.id, req.body);
     res.json(message);
   });
 
-  app.patch("/api/appointments/:id", adminAuthMiddleware, async (req, res) => {
+  app.patch("/api/appointments/:id", adminAuthMiddleware, async (req: Request<{ id: string }>, res) => {
     const appointment = await storage.updateAppointment(
       req.params.id,
       req.body,
@@ -367,12 +383,12 @@ export async function registerRoutes(
     res.json(blog);
   });
 
-  app.patch("/api/blogs/:id", adminAuthMiddleware, async (req, res) => {
+  app.patch("/api/blogs/:id", adminAuthMiddleware, async (req: Request<{ id: string }>, res) => {
     const blog = await storage.updateBlog(req.params.id, req.body);
     res.json(blog);
   });
 
-  app.delete("/api/blogs/:id", adminAuthMiddleware, async (req, res) => {
+  app.delete("/api/blogs/:id", adminAuthMiddleware, async (req: Request<{ id: string }>, res) => {
     await storage.deleteBlog(req.params.id);
     res.json({ success: true });
   });

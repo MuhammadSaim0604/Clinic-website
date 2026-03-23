@@ -50,7 +50,7 @@ export default function BlogDetail() {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .blog-content-detail {
           word-break: normal !important;
           overflow-wrap: break-word !important;

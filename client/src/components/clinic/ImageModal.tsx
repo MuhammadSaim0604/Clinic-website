@@ -46,10 +46,11 @@ export function ImageModal({ isOpen, onClose, onSelect, multiple = false }: Imag
         const reader = new FileReader();
         reader.onload = async (e) => {
           try {
-            const response = await apiRequest("POST", "/api/images/upload", {
+            const response = await apiRequest<Image>("POST", "/api/images/upload", {
               imageData: e.target?.result,
               fileName: file.name,
             });
+
             resolve(response.path);
           } catch (err) {
             reject(err);
