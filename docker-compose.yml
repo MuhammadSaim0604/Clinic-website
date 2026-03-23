@@ -29,7 +29,7 @@ services:
     environment:
       NODE_ENV: production
       PORT: 5000
-      MONGODB_URI: mongodb://dfklashfkja:adsfasdfadf@mongodb:27017/clinic?authSource=admin
+      MONGO_URI: mongodb://dfklashfkja:adsfasdfadf@mongodb:27017/clinic?authSource=admin
     ports:
       - "5000:5000"
     depends_on:

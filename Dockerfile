@@ -4,9 +4,11 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm ci --only=production && npm cache clean --force
+RUN npm ci && npm cache clean --force
 
 COPY . .
+
+ENV NODE_ENV=production
 
 RUN npm run build
 
@@ -15,4 +17,4 @@ EXPOSE 5000
 ENV NODE_ENV=production
 ENV PORT=5000
 
-CMD ["npm", "run", "start"]
+CMD ["npm","start"]
